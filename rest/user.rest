@@ -1,0 +1,26 @@
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+# Preencha após login (em auth.rest)
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODM5MjhkMC03NGE1LTQzYzAtYTUzOS0zYmRjYmYzMWQzNzEiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3Nzg0NjIzNzIsImV4cCI6MTc3ODQ2NTk3Mn0.V5ee-gdzOQ6d8ZFYNF0z-WUxEpELjKx0ypg9VqcyYso
+
+# Preencha após criar um usuário
+@userId = 4b1f9809-9213-4bd5-957c-a4e7ab312e44
+
+### Criar usuário
+POST {{baseUrl}}/user/
+Content-Type: {{contentType}}
+
+{
+  "username": "bruno123",
+  "email": "user@mail.com",
+  "password": "Password@123"
+}
+
+### Buscar usuário por ID (requer JWT)
+GET {{baseUrl}}/user/{{userId}}
+Authorization: Bearer {{accessToken}}
+
+### Buscar todos os usuários (requer JWT)
+GET {{baseUrl}}/user/
+Authorization: Bearer {{accessToken}}

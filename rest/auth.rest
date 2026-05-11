@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+# Variáveis preenchidas após login
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODM5MjhkMC03NGE1LTQzYzAtYTUzOS0zYmRjYmYzMWQzNzEiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3Nzg0NjQwNjEsImV4cCI6MTc3ODQ2NzY2MX0.KxPYmKd6-sd-fwEmrDRtKv-DJ1pB5VvFX2STWSfKq2U
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODM5MjhkMC03NGE1LTQzYzAtYTUzOS0zYmRjYmYzMWQzNzEiLCJqdGkiOiJlYTJhMGRkZS0zMTcyLTRhYzAtYTA4OC05NGM5NTJkYmIxOTAiLCJpYXQiOjE3Nzg0NjQwMDYsImV4cCI6MTc3OTA2ODgwNn0.ilUQWmfH64W4vY3PZE5rp3ieZbaRICTvF7OkJfCPEoE
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+"password": "Password@123"
+}
+
+### Refresh token
+POST {{baseUrl}}/auth/refresh
+Content-Type: {{contentType}}
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Logout
+POST {{baseUrl}}/auth/logout
+Content-Type: {{contentType}}
+Authorization: Bearer {{accessToken}}
+
+{}
