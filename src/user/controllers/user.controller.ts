@@ -9,7 +9,7 @@ import { UserMapper } from '../mappers/user.mapper';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('/')
+  @Post()
   async create(@Body() createUser: UserCreateDto): Promise<UserResponseDto | null> {
     const user = await this.userService.create(createUser);
     return UserMapper.toResponseDto(user);
@@ -23,7 +23,7 @@ export class UserController {
   }
 
   @UseGuards(JwtGuard)
-  @Get('/')
+  @Get()
   async getAllUsers(): Promise<UserResponseDto[]> {
     const users = await this.userService.findAll();
     return UserMapper.toResponseDtoList(users);

@@ -13,7 +13,7 @@ import jwtConfig from './jwt/jwt.config';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [jwtConfig],
-      envFilePath: ['.env', '.env.development', '.env.production', '.env.test', '.env.example'],
+      envFilePath: ['.env', '.env.development', '.env.production', '.env.test'],
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('development', 'production', 'test').default('development'),
         PORT: Joi.number().integer().min(1).max(65535).default(3000),

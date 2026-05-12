@@ -1,10 +1,4 @@
-@baseUrl = http://localhost:3000
-@contentType = application/json
-
-# Variáveis preenchidas após login
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODM5MjhkMC03NGE1LTQzYzAtYTUzOS0zYmRjYmYzMWQzNzEiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3Nzg1NDY5MDAsImV4cCI6MTc3ODU1MDUwMH0.HH40Q3ZCU0mlBBrzTFgr0CVQEUuhq6Z6BwEoEVoNxfE
-@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODM5MjhkMC03NGE1LTQzYzAtYTUzOS0zYmRjYmYzMWQzNzEiLCJqdGkiOiIxNzc5MjhkZC0wMzY4LTRlYmYtYTYxMi00MTc3ZTdjYzM0ODAiLCJpYXQiOjE3Nzg1NDYyNDUsImV4cCI6MTc3OTE1MTA0NX0.fXaWGnAQNGUtFHwi_NpgwxAr0zXUYEqgzX_Xug_Pi30
-
+### Login
 POST {{baseUrl}}/auth/login
 Content-Type: {{contentType}}
 

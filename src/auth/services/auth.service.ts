@@ -79,7 +79,7 @@ export class AuthService {
     let payload: { sub: string; jti: string };
     try {
       payload = await this.jwtService.verifyAsync<{ sub: string; jti: string }>(accessToken, {
-        secret: this.configService.getOrThrow<string>('jwt.jwtAccessSecret'),
+        secret: this.configService.getOrThrow<string>('jwt.secret'),
       });
     } catch {
       throw new UnauthorizedException('Access token inválido');

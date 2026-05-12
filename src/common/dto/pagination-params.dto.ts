@@ -5,6 +5,7 @@ export class PaginationParams {
   @IsOptional()
   @IsNumberString()
   offset: number = OFF_SET_DEFAULT;
+
   @IsOptional()
   @IsNumberString()
   @Max(LIMIT_MAX)

@@ -6,7 +6,7 @@ import { AuthController } from './controllers/auth.controller';
 import { JwtModule } from 'src/jwt/jwt.module';
 import { CommonModule } from 'src/common/common.module';
 import { RefreshToken } from './entities/refresh-token.entity';
-import { LocalStrategy } from 'src/jwt/strategy/local.srategy';
+import { LocalStrategy } from 'src/jwt/strategy/local.strategy';
 
 @Module({
   imports: [UserModule, JwtModule, CommonModule, TypeOrmModule.forFeature([RefreshToken])],
