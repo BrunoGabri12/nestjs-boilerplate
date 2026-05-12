@@ -1,22 +1,17 @@
 # Descrição
-
 Código boilerplate para aplicações NestJS.
 
 ## O que esta aplicação possui?
-
 Esta aplicação fornece uma base de configuração para qualquer projeto NestJS, incluindo autenticação, autorização, controle de permissões por perfil (role permissions) e demais configurações fundamentais já implementadas.
 
 ## Qual o objetivo desta aplicação?
-
 Concentrar o esforço de desenvolvimento nas funcionalidades relevantes ao projeto, eliminando o tempo gasto na implementação de métodos, ferramentas e código repetitivo.
 
 # Estrutura do projeto
-
 O projeto segue a estrutura modular recomendada pelo NestJS. Internamente, cada módulo organiza suas responsabilidades em diretórios separados.
 > Exemplo: `service` → `services`
 
 # Pacotes necessários
-
 Antes de utilizar este boilerplate, certifique-se de que os seguintes pacotes estejam instalados:
 
 ```bash
@@ -37,9 +32,7 @@ npm install --save @nestjs/typeorm
 ```
 
 ## Variáveis de ambiente
-
 Defina as variaveis no arquivo de .env
-
 A função de `app.config.ts` valida o arquivo de env, garantindo consistencia.
 
 ```bash
@@ -52,9 +45,10 @@ DB_DATABASE=nome_do_banco
 ```
 
 ## Docker compose
+No projeto há o arquivo de exemplo do docker-compose.yml. Para inicializar o banco de dados, basta utilizar o seguinte comando `docker-compose up -d`
+Não utilize-o em ambiente de produção
 
-No projeto há o arquivo de docker-compose.yml. Para inicializar o banco de dados, basta utilizar o seguinte comando `docker-compose up -d`
-
-
-### Docker compose - Erro de inicialização 
-Caso, ao tentar realizar login a autenticação de senha estiver falhando, atente-se a eliminar o processo do postgres. Esse tipo de exceção pode acontecer caso esteja possua o postgres instalado e esteja rodando o docker com uma imagem do postgres 
+## Enviroments
+No projeto existe um arquivo de enviroment de exemplo. Não utilize-o em ambiente de produção 
+Para utilizar as variaveis de ambiente utilize o modulo de config. Ele garante a consistencia dos valores e realiza uma validação prévia das variáveis. Sempre utilize a chamada do configService utilizando getOrThorw
+Para adicionar uma nova propriedade do .env, adicione a validação no app.module - utilize a biblioteca JOI 
