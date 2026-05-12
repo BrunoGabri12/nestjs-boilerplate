@@ -12,8 +12,7 @@ Concentrar o esforço de desenvolvimento nas funcionalidades relevantes ao proje
 
 # Estrutura do projeto
 
-O projeto segue a estrutura modular recomendada pelo NestJS. Internamente, cada módulo organiza suas responsabilidades em diretórios separados. Recomenda-se fortemente **não adicionar arquivos na raiz do módulo** — crie sempre um novo diretório com o nome no plural conforme necessário.
-
+O projeto segue a estrutura modular recomendada pelo NestJS. Internamente, cada módulo organiza suas responsabilidades em diretórios separados.
 > Exemplo: `service` → `services`
 
 # Pacotes necessários
