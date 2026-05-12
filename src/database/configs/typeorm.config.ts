@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
@@ -17,7 +16,7 @@ export const typeormConfig = (config: ConfigService): TypeOrmModuleOptions => ({
   password: config.get<string>('DB_PASSWORD'),
   database: config.get<string>('DB_DATABASE'),
   entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
-  synchronize: false,
-  autoLoadEntities: false,
+  synchronize: config.get<string>('NODE_ENV') !== 'production', //TODO: user migrations ao invés de synchronize
+  autoLoadEntities: true,
   logging: config.get<string>('NODE_ENV') === 'development',
 });
