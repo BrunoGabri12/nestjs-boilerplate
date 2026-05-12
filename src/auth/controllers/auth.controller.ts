@@ -1,10 +1,10 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
 import { TokenResponseDto } from '../dto/token-response.dto';
 import { AuthService } from '../services/auth.service';
-import { RefreshRequestDto } from '../dto/refresh-request.dto';
-import { LocalGuard } from 'src/jwt/guard/local.guard';
+import { TokenDto } from '../dto/token.dto';
 import { JwtGuard } from 'src/jwt/guard/jwt.guard';
 import { LoginRequestDto } from '../dto/login-request.dto';
+import { BearerToken } from '../decorators/bearer-token.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -17,15 +17,16 @@ export class AuthController {
   }
 
   @Post('refresh')
+  @UseGuards(JwtGuard)
   @HttpCode(HttpStatus.OK)
-  async refresh(@Body() body: RefreshRequestDto): Promise<TokenResponseDto> {
+  async refresh(@Body() body: TokenDto): Promise<TokenResponseDto> {
     return this.authService.refresh(body);
   }
 
   @UseGuards(JwtGuard)
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout(@Body() body: any): Promise<void> {
-    return this.authService.logout(body);
+  async logout(@BearerToken() token: string): Promise<void> {
+    return this.authService.logout(token);
   }
 }

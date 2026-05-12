@@ -11,7 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtPayloadDto } from 'src/jwt/dto/jwt-payload.dto';
 import type { StringValue } from 'ms';
 import { LoginRequestDto } from '../dto/login-request.dto';
-import { RefreshRequestDto } from '../dto/refresh-request.dto';
+import { TokenDto } from '../dto/token.dto';
 import { randomUUID } from 'crypto';
 
 @Injectable()
@@ -48,10 +48,10 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async refresh(refreshTokenDto: RefreshRequestDto): Promise<TokenResponseDto> {
+  async refresh(refreshTokenDto: TokenDto): Promise<TokenResponseDto> {
     let payload: { sub: string; jti: string };
     try {
-      payload = await this.jwtService.verifyAsync<{ sub: string; jti: string }>(refreshTokenDto.refreshToken, {
+      payload = await this.jwtService.verifyAsync<{ sub: string; jti: string }>(refreshTokenDto.token, {
         secret: this.configService.getOrThrow<string>('jwt.jwtRefreshSecret'),
       });
     } catch {
@@ -75,8 +75,17 @@ export class AuthService {
     return { accessToken, refreshToken: newRefreshToken };
   }
 
-  async logout(userId: string): Promise<void> {
-    await this.refreshTokenRepository.update({ user: { id: userId }, revoked: false }, { revoked: true });
+  async logout(accessToken: string): Promise<void> {
+    let payload: { sub: string; jti: string };
+    try {
+      payload = await this.jwtService.verifyAsync<{ sub: string; jti: string }>(accessToken, {
+        secret: this.configService.getOrThrow<string>('jwt.jwtAccessSecret'),
+      });
+    } catch {
+      throw new UnauthorizedException('Access token inválido');
+    }
+
+    await this.refreshTokenRepository.update({ user: { id: payload.sub }, revoked: false }, { revoked: true });
   }
 
   private signAccessToken(user: User): Promise<string> {

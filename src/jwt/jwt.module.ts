@@ -6,9 +6,11 @@ import type { StringValue } from 'ms';
 import { JwtGuard } from './guard/jwt.guard';
 import { LocalGuard } from './guard/local.guard';
 import { JwtStrategy } from './strategy/jwt.strategy';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
+    UserModule,
     PassportModule,
     NestJwtModule.registerAsync({
       imports: [ConfigModule],

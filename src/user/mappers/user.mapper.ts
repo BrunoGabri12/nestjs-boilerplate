@@ -11,7 +11,8 @@ export class UserMapper {
     return user;
   }
 
-  static toResponseDto(entity: User): UserResponseDto {
+  static toResponseDto(entity: User | null): UserResponseDto | null {
+    if (!entity) return null;
     const dto = new UserResponseDto();
     dto.id = entity.id;
     dto.username = entity.username;
@@ -21,6 +22,8 @@ export class UserMapper {
   }
 
   static toResponseDtoList(entities: User[]): UserResponseDto[] {
-    return entities.map((entity) => UserMapper.toResponseDto(entity));
+    return entities
+      .map((entity) => UserMapper.toResponseDto(entity))
+      .filter((dto): dto is UserResponseDto => dto !== null);
   }
 }
