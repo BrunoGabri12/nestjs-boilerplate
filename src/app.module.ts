@@ -1,18 +1,20 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import dbConfig from './config/database/db.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './api/user/user.module';
+import jwtConfig from './config/jwt/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { DatabaseModule } from './database/database.module';
-import { CommonModule } from './common/common.module';
-import { JwtModule } from './jwt/jwt.module';
-import jwtConfig from './jwt/jwt.config';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [jwtConfig],
+      expandVariables: true,
+      load: [dbConfig, jwtConfig],
       envFilePath: ['.env', '.env.development', '.env.production', '.env.test'],
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().valid('development', 'production', 'test').default('development'),
@@ -30,11 +32,11 @@ import jwtConfig from './jwt/jwt.config';
       }),
       validationOptions: { abortEarly: false },
     }),
-    AuthModule,
+    TypeOrmModule.forRootAsync({ useFactory: dbConfig }),
+    JwtModule.registerAsync({ useFactory: jwtConfig }),
     UserModule,
-    DatabaseModule,
-    CommonModule,
-    JwtModule,
+    AuthModule,
+    SharedModule,
   ],
 })
 export class AppModule {}
